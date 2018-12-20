@@ -6,11 +6,16 @@
 #include <vector>
 #include <string>
 
-class AsciiFileWriterPolicy {
-public:
-	static auto writeDataToFile(
-			const std::string& file_path, const std::vector<std::string>& container) -> bool;	
-};
+
+namespace tks {
+	namespace io {
+		class AsciiFileWriterPolicy {
+		public:
+			static auto writeDataToFile(
+					const std::string& file_path, const std::vector<std::string>& container) -> bool;	
+		};
+	}
+}
 
 #endif // _ASCII_FILE_WRITER_POLICY_
 
