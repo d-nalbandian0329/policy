@@ -25,5 +25,11 @@ BinaryFileWriterPolicy.o : $(source_dir)BinaryFileWriterPolicy.cpp $(include_dir
 run :
 	./a.out $(command_arg)
 
-.PHONY : run
+
+clean :
+	rm -f $(obj_dir)*.o
+	rm -f ./a.out
+
+
+.PHONY : run clean
 

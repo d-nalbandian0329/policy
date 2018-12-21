@@ -11,8 +11,8 @@ namespace tks {
 	namespace io {
 		class BinaryFileWriterPolicy {
 		public:
-			static auto writeDataToFile(const std::string& file_path,
-					std::unique_ptr<char[]> byte_data, std::size_t total_size) -> bool;
+			static auto writeDataToFile(std::unique_ptr<char[]> byte_data,
+											std::size_t total_size, const std::string& file_path) -> bool;
 		};
 	}
 }

@@ -3,7 +3,7 @@
 namespace tks {
 	namespace io {
 		auto AsciiFileWriterPolicy::writeDataToFile(
-				const std::string& file_path, const std::vector<std::string>& container) -> bool {
+				const std::vector<std::string>& container, const std::string& file_path) -> bool {
 
 			std::ofstream ofs;
 

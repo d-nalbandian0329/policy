@@ -12,7 +12,7 @@ namespace tks {
 		class AsciiFileWriterPolicy {
 		public:
 			static auto writeDataToFile(
-					const std::string& file_path, const std::vector<std::string>& container) -> bool;	
+					const std::vector<std::string>& container, const std::string& file_path) -> bool;	
 		};
 	}
 }

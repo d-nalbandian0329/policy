@@ -45,37 +45,53 @@ namespace tks {
 
 			~FileWriter() = default;
 
-			template <class IndexableContainer>
-			bool writeDataToFile(IndexableContainer&& container) {
-				return this->writeDataToFile(this->file_path_, std::forward<IndexableContainer>(container));
+
+			template <	class T,
+						template <class U, class Allocator = std::allocator<U>>
+						class IndexableSTLContainer,
+						typename std::enable_if<
+							is_indexable<IndexableSTLContainer<T>>::value
+							&&
+							has_size<IndexableSTLContainer<T>>::value>::type* = nullptr>
+			bool writeDataToFile(const IndexableSTLContainer<T>& container) {
+				//return FileWriter<FileWriterPolicy>::writeDataToFile(container, file_path_);
+				return writeDataToFile(container, file_path_);
 			}
 
-			template <class IndexableContainer /*,
+
+			template <	class T,
+						template <class U, class Allocator = std::allocator<U>>
+						class IndexableSTLContainer,
 						typename std::enable_if<
+							is_indexable<IndexableSTLContainer<T>>::value
+							&&
+							has_size<IndexableSTLContainer<T>>::value>::type* = nullptr>
+			bool writeDataToFile(const IndexableSTLContainer<T>& container, const std::string& file_path) {
+				return FileWriterPolicy::writeDataToFile(container, file_path);
+			}
+
+
+
+			// size() 持ってない方
+			template <class IndexableContainer,
+					 	typename std::enable_if<
 							is_indexable<IndexableContainer>::value
 							&&
-							has_size<IndexableContainer>::value>::type* = nullptr*/>
-			bool writeDataToFile(const std::string& file_path, IndexableContainer&& container) {
-				return FileWriterPolicy::writeDataToFile(file_path, std::forward<IndexableContainer>(container));
-			}
-
-
-			/*
-			// size() 持ってない方
-			template <class IndexableContainer>
+							!has_size<IndexableContainer>::value>::type* = nullptr>
 			bool writeDataToFile(IndexableContainer&& container, std::size_t total_size) {
-				return this->writeDataToFile(this->file_path_, std::forward<IndexableContainer>(container), total_size);
+				return writeDataToFile(std::forward<IndexableContainer>(container), total_size, file_path_);
 			}
+
 
 			template <class IndexableContainer,
 					 	typename std::enable_if<
 							is_indexable<IndexableContainer>::value
 							&&
 							!has_size<IndexableContainer>::value>::type* = nullptr>
-			bool writeDataToFile(const std::string& file_path, IndexableContainer&& container, std::size_t total_size) {
-				return FileWriterPolicy::writeDataToFile(file_path, std::forward<IndexableContainer>(container), total_size);
+			bool writeDataToFile(IndexableContainer&& container, std::size_t total_size, const std::string& file_path) {
+				return FileWriterPolicy::writeDataToFile(std::forward<IndexableContainer>(container), total_size, file_path);
 			}
-			*/
+
 
 		private:
 			std::string file_path_;

@@ -2,8 +2,8 @@
 
 namespace tks {
 	namespace io {
-		auto BinaryFileWriterPolicy::writeDataToFile(const std::string& file_path,
-				std::unique_ptr<char[]> byte_data, std::size_t total_size) -> bool {
+		auto BinaryFileWriterPolicy::writeDataToFile(std::unique_ptr<char[]> byte_data,
+														std::size_t total_size, const std::string& file_path) -> bool {
 
 			std::ofstream ofs;
 
